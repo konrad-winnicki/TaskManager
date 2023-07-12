@@ -25,4 +25,4 @@ jobs:
         npm ci
         npm install -g typescript
         npm test
-        npx webpack
+        

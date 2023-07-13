@@ -7,6 +7,7 @@
     "test": "npm run process1 & npm run process2",
     "process1": "tsc",
     "process2": "jest",
+    "eslint": "npx eslint .",
     "manager": "node .\\dist\\app.js"
   },
   "author": "Konrad Winnicki",

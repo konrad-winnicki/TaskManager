@@ -20,6 +20,9 @@
     "@types/jest": "^29.5.3",
     "@types/node": "^20.4.1",
     "@types/prompt": "^1.1.5",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.44.0",
     "jest-mock": "^29.6.1",
     "ts-jest": "^29.1.1"
   }

@@ -1,7 +1,5 @@
 import { IndexedTasks, NumberedTaskList } from "./NumberedTaskList";
-import { WithId } from "mongodb";
 import { TaskManager } from "./TaskManager";
-import { DatabaseConnector, Document } from "./DatabaseConnector";
 
 export interface UserInputData {
   name: string;

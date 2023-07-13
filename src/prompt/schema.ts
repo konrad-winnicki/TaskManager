@@ -4,7 +4,7 @@ export const taskDescriptionFormSchema: prompt.Schema = {
   properties: {
     name: {
       description: "Indicate task name",
-      pattern: /[a-zA-z0-9\-]+$|c/,
+      pattern: /[a-zA-z0-9-]+$|c/,
       message:
         "Wrong format.\n Only letters numbers and '-' are allowed.\nIndicate c if you want to abort.\n",
       required: true,

@@ -1,8 +1,9 @@
-import { describe, expect, test, jest } from "@jest/globals";
+import { describe, expect, test, jest} from "@jest/globals";
 
 import { run } from "../app";
-import { mocked } from "jest-mock";
+import { UnknownFunction, mocked} from "jest-mock";
 import prompt from "prompt";
+
 jest.mock("prompt");
 import { TaskManager } from "../classes/TaskManager";
 import { NumberedTaskList } from "../classes/NumberedTaskList";
@@ -11,6 +12,8 @@ jest.mock("../classes/UserManager");
 import { DatabaseConnector } from "../classes/DatabaseConnector";
 jest.mock("../classes/DatabaseConnector");
 
+
+
 describe("Test app.ts", () => {
   const numberedTaskList = new NumberedTaskList([]);
   const mockedNumberedTaskList = mocked(numberedTaskList);
@@ -18,33 +21,35 @@ describe("Test app.ts", () => {
     new TaskManager(new DatabaseConnector("uri"))
   );
   const mockedUserManager = mocked(userManager);
+ 
 
   function promptUserResponse(userResponse: string) {
     (prompt.get as jest.Mock).mockImplementation(
-      (schema: any, callback: any) => {
-        callback(null, { command: userResponse });
+      (_schema: unknown, callback:unknown) => {
+        (callback as UnknownFunction)(null, { command: userResponse });
       }
     );
   }
-
   function recurenceEnd() {
     (prompt.get as jest.Mock).mockImplementation(
-      (schema: any, callback: any) => {
-        const userInput = "q";
-        callback(null, { command: userInput });
+      (_schema: unknown, callback:unknown ) => {
+        (callback as UnknownFunction) (null, { command: 'q' });
       }
     );
   }
 
   test("App should call createTask method from UserManager calss if user put 'a': ", async () => {
     promptUserResponse("a");
+
+    
+   
     await run(mockedUserManager, mockedNumberedTaskList);
     expect(mockedUserManager.createTask).toHaveBeenCalledTimes(1);
     recurenceEnd();
   });
 
   test("App should call showTable() if user put 's': ", async () => {
-    promptUserResponse("s");
+    promptUserResponse('s');
     mockedUserManager.readTask.mockImplementation(() => {
       return Promise.resolve(new NumberedTaskList([]));
     });
@@ -74,3 +79,5 @@ describe("Test app.ts", () => {
     expect(spy).toBeCalledWith("Program finished");
   });
 });
+
+
